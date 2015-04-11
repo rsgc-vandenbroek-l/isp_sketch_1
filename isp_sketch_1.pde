@@ -1,4 +1,4 @@
-// April 2, 2015, Class 16
+// April 10, 2015, Class 18
 // Luke Vanden Broek
 
 // font and time
@@ -7,8 +7,6 @@ int initialTime;
 int interval=1000;
 int score=0;
 
-// command space
-int value=0;
 
 void setup()
 {
@@ -35,13 +33,35 @@ void draw()
   fill (360);
   text(score, 50, 50);
 
-  // up command
-   if (keyPressed) {
+  // space command
+  if (keyPressed) {
     if (key == ' ') {
       fill(0);
     }
   } else {
     fill (360);
   }
-  ellipse (250,250,50,50);
+  // up command
+  if (keyPressed) {
+    if (key == CODED) {
+      if (keyCode == UP)
+      {
+        fill(50, 50, 50);
+      }
+    }
+  } else { 
+    fill (360);
+  }    
+  ellipse (250, 250, 50, 50);
+ fill (value);
+ ellipse (250,50,50,50);
+}
+// mousecommand
+int value=200;
+void mouseClicked() {
+  if (value == 200) {
+    value = 0;
+  } else {
+    value = 0;
+  }
 }
