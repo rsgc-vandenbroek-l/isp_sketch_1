@@ -9,7 +9,8 @@ PFont font;
 int initialTime;
 int interval=1000;
 int score=0;
-
+// mouse circle
+int value=200;
 
 void setup()
 {
@@ -32,7 +33,6 @@ void setup()
 
 void draw()
 {
-
   // score
   background (230, 100, 100);
   if (millis() - initialTime > interval)
@@ -51,19 +51,20 @@ void draw()
       }
     }
   } else { 
-    y=y+3;
+    y=y+5;
   }    
- // space command
+  // space command
   if (keyPressed) {
     if (key == ' ') {
       fill(0);
-      y=y+3;
+      y=y+5;
     }
+  } else if (keyPressed== true) {
   } else {
     fill (360);
-    y=y+3;
+    y=y+5;
   }
-    // Loop and draw all the circles
+  // Loop and draw all the circles
   int circle=0;
   while (circle< x.length) {// while circle is less than 5...
     ellipse (x[circle], y, 50, 50);
@@ -73,11 +74,14 @@ void draw()
   fill (value);
   ellipse (250, 50, 50, 50);
 }
-int value=200;
+
 void mouseClicked() {
-  if (value == 200) {
-    value = 0;
-  } else {
-    value = 200;
+  if (mouseX >225 && mouseX<275 && mouseY>25 && mouseY<75)
+  {  
+    if (value == 200) {
+      value = 0;
+    } else {
+      value = 200;
+    }
   }
 }
