@@ -1,4 +1,4 @@
-// April 10, 2015, Class 18
+// April 20, 2015, Class 21
 // Luke Vanden Broek
 
 // moving circle
@@ -11,6 +11,8 @@ int interval=1000;
 int score=0;
 // mouse circle
 int value=200;
+float xM=1000;
+float yM=0;
 
 void setup()
 {
@@ -59,10 +61,8 @@ void draw()
       fill(0);
       y=y+5;
     }
-  } else if (keyPressed== true) {
   } else {
     fill (360);
-    y=y+5;
   }
   // Loop and draw all the circles
   int circle=0;
@@ -72,14 +72,21 @@ void draw()
   }
   // mousecommand
   fill (value);
-  ellipse (250, 50, 50, 50);
+  ellipse (xM, yM, 50, 50);
+  yM=yM+.5;
+  xM=xM-1;
+  // cursor appearence
+  fill (100, 100, 100);
+  noCursor();
+  ellipse (mouseX, mouseY, 25, 25);
 }
 
 void mouseClicked() {
-  if (mouseX >225 && mouseX<275 && mouseY>25 && mouseY<75)
+  if (mouseX >xM-25 && mouseX<xM+25 && mouseY>yM-25 && mouseY<yM+25)
   {  
     if (value == 200) {
       value = 0;
+      score=score+1;
     } else {
       value = 200;
     }
