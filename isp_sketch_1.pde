@@ -15,12 +15,11 @@ float yM= random (500);
 float r=1000;
 float r2=random(2);
 float r3=.75;
+// menu item variables
 boolean menu=true;
-boolean archerPortrait=true;
-boolean reaverPortrait=true;
-int rXA=100;
-int rY=150;
-int rXR=600;
+boolean aPortrait=true;
+boolean bPortrait=true;
+
 void setup()
 {
   // background
@@ -43,19 +42,19 @@ void setup()
 void draw()
 {    
   text("The Game", 375, 100);
-  rect(rXA, rY, 300, 300);
-  rect (rXR, rY, 300, 300);
+  rect(100, 150, 300, 300);
+  rect (600, 150, 300, 300);
   if (!menu) {
     background (230, 100, 100);
     // player circle
     int circle=0;
     while (circle< x.length) {// while circle is less than 5...
 
-      if (!archerPortrait) {
+      if (!aPortrait) {
         ellipse (x[circle], y, 50, 50);
         circle= circle +1;
       }
-      if (!reaverPortrait)
+      if (!bPortrait)
       {
         ellipse (x[circle], y, 100, 100);
         circle= circle +1;
@@ -102,38 +101,46 @@ void draw()
     if (yM>500||r<0) {
       yM=random (250);
       r=1000;
+      r3=r3+.1;
       score=score-20; // score goes down by 20
+    }
+    if (y>500||y<0) {
+      y=250;
+      yM=random (250);
+      r=1000;
+      r3=.75;
+      score=0; // score goes down by 20
     }
   }
 }
 
 
 void mouseClicked() {
-// archer character selected
-  if (mouseX>rXA&&mouseX<rXA+300&&mouseY>rY&&mouseY<rY+300)
+  // aPortrait selected
+  if (mouseX>100&&mouseY>150&&mouseX<400&&mouseY<550)
   {    
     if (menu) {
       menu = true;
-      archerPortrait=true;
+      aPortrait=true;
+    }
+  }
+  // otherwise make it false
+  else {
+    menu = false;
+    aPortrait=false;
+  }
+  // bPortrait selected
+  if (mouseX>600&&mouseX<900&&mouseY>150&&mouseY<550)
+  {    
+    if (menu) {
+      menu = true;
+      bPortrait=true;
     }
   }
   // otherwise make it true
   else {
     menu = false;
-    archerPortrait=false;
-  }
-  // reaver character selected
-  if (mouseX>100&&mouseX<400&&mouseY>150&&mouseY<450)
-  {    
-    if (menu) {
-      menu = true;
-      archerPortrait=true;
-    }
-  }
-  // otherwise make it true
-  else {
-    menu = false;
-    archerPortrait=false;
+    bPortrait=false;
   }
   // computer circle clicked
   if (mouseX >r-25 && mouseX<r+25 && mouseY>yM-25 && mouseY<yM+25) // shows where mouse must click to start animation
