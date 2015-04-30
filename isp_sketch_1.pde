@@ -1,9 +1,9 @@
-// April 20, 2015, Class 21
+// April 20, 2015, Class 21 //<>//
 // Luke Vanden Broek
 
 // player circle variables
 int y = 250;
-int [] x= new int [1];
+int x= 200;
 // font and time variables
 PFont font;
 int initialTime;
@@ -30,65 +30,39 @@ void setup()
   textSize(50);
   font=createFont("Arial", 0); 
   initialTime=millis();
-  // player shape movement
-  int counter= 1;
-  x[0]=200;
-  while (counter<x.length) {// while counter is less than 50...
-    x[counter] =x[counter-1]+10;
-    counter=counter +1;
-  }
 }
 
 void draw()
-{    
+{ 
   text("The Game", 375, 100);
   rect(100, 150, 300, 300);
   rect (600, 150, 300, 300);
   if (!menu) {
     background (230, 100, 100);
-    // player circle
-    int circle=0;
-    while (circle< x.length) {// while circle is less than 5...
-
-      if (!aPortrait) {
-        ellipse (x[circle], y, 50, 50);
-        circle= circle +1;
-      }
-      if (!bPortrait)
-      {
-        ellipse (x[circle], y, 100, 100);
-        circle= circle +1;
-      }
-      // makes game paused befoe starting
-      // score
-      if (millis() - initialTime > interval)
-      {
-        score++;
-        initialTime = millis();
-      }
-      fill (360);
-      text(score, 50, 50);
-      // up command
-      if (keyPressed) {
-        if (key == CODED) {
-          if (keyCode == UP)
-          {
-            y=y-5; // moves player circle up when up is clicked
-          }
-        }
-      } else { 
-        y=y+5; // moves player circle down when up released
-      } 
-      // space command
-      if (keyPressed) {
-        if (key == ' ') {
-          fill(0);
-          y=y+5; // turns player circle black when space is clicked, however forces
-        }
-      } else {
-        fill (360); // returns player circle to white when space is released
-      }
+    // up command
+    if (!aPortrait) {
+      ellipse(x, y, 100, 100);
+    } else if (!bPortrait) {
+      ellipse(x, y, 50, 50);
     }
+    // score
+    if (millis() - initialTime > interval)
+    {
+      score++;
+      initialTime = millis();
+    }
+    fill (360);
+    text(score, 50, 50);
+    if (keyPressed) {
+      if (key == CODED) {
+        if (keyCode == UP)
+        {
+          y=y-5; // moves player circle up when up is clicked
+        }
+      }
+    } else { 
+      y=y+5; // moves player circle down when up released
+    } 
     // computer circle
     fill (value);
     ellipse (r, yM, 50, 50); // coordinates for computer circle starting at random x position and y position of 0
@@ -101,8 +75,8 @@ void draw()
     if (yM>500||r<0) {
       yM=random (250);
       r=1000;
-      r3=r3+.1;
-      score=score-20; // score goes down by 20
+      r3=r3+1;
+      score=score-50; // score goes down by 20
     }
     if (y>500||y<0) {
       y=250;
@@ -125,10 +99,11 @@ void mouseClicked() {
     }
   }
   // otherwise make it false
-  else {
+  else if (aPortrait){
     menu = false;
-    aPortrait=false;
+    bPortrait=false;
   }
+
   // bPortrait selected
   if (mouseX>600&&mouseX<900&&mouseY>150&&mouseY<550)
   {    
@@ -138,10 +113,11 @@ void mouseClicked() {
     }
   }
   // otherwise make it true
-  else {
+  else if (bPortrait){
     menu = false;
-    bPortrait=false;
+    aPortrait=false;
   }
+  
   // computer circle clicked
   if (mouseX >r-25 && mouseX<r+25 && mouseY>yM-25 && mouseY<yM+25) // shows where mouse must click to start animation
   {  
