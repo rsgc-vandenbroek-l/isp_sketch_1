@@ -1,4 +1,4 @@
-// April 20, 2015, Class 21 //<>//
+// May 4, 2015, Class 25 //<>//
 // Luke Vanden Broek
 
 // player circle variables
@@ -12,14 +12,18 @@ int score=0;
 // compuer circle variables
 int value=200;
 float yM= random (500);
-float r=1000;
-float r2=random(2);
-float r3=.75;
+float xM=1000;
+float yM2=random(2);
+float xM2=.75;
 // menu item variables
 boolean menu=true;
 boolean aPortrait=true;
 boolean bPortrait=true;
-
+// obstacle variables
+int xa = 1000;
+float inSpace=random (75, 100);
+float ya= random (-400, 0);
+float y2a= ya+400+inSpace;
 void setup()
 {
   // background
@@ -65,26 +69,39 @@ void draw()
     } 
     // computer circle
     fill (value);
-    ellipse (r, yM, 50, 50); // coordinates for computer circle starting at random x position and y position of 0
-    yM=yM+r2; // moves computer circle down at random speed between 2 and 0
-    r=r-r3;
+    ellipse (xM, yM, 50, 50); // coordinates for computer circle starting at random x position and y position of 0
+    yM=yM+yM2; // moves computer circle down at random speed between 2 and 0
+    xM=xM-xM2;
     // cursor appearence
     fill (100, 100, 100); // makes next ellipse green
     noCursor(); // hides the normal cursor
     ellipse (mouseX, mouseY, 25, 25); // puts ellipse where mouse cursor would usually be
-    if (yM>500||r<0) {
+    if (yM>500||xM<0) {
       yM=random (250);
-      r=1000;
-      r3=r3+1;
+      xM=1000;
+      xM2=xM2+1;
       score=score-50; // score goes down by 20
     }
     if (y>500||y<0) {
       y=250;
       yM=random (250);
-      r=1000;
-      r3=.75;
-      score=0; // score goes down by 20
+      xM=1000;
+      xM2=.75;
+      score=0; // score resets
+      xa=1000;
     }
+    // Change the horizontal position
+    xa=xa-4;
+    // Draw the rectangles on screen
+    rect(xa, ya, 100, 400);// draws first rect
+    rect(xa, y2a, 100, 400);// draws second rect with space in between
+    if (xa<0) {
+      inSpace= random(75, 100);
+      xa=1000;// respawns at 1000
+      ya=random (-400, 0);// resets height of top rect
+      y2a=ya+400+inSpace;
+    }
+    
   }
 }
 
@@ -99,7 +116,7 @@ void mouseClicked() {
     }
   }
   // otherwise make it false
-  else if (aPortrait){
+  else if (aPortrait) {
     menu = false;
     bPortrait=false;
   }
@@ -113,17 +130,17 @@ void mouseClicked() {
     }
   }
   // otherwise make it true
-  else if (bPortrait){
+  else if (bPortrait) {
     menu = false;
     aPortrait=false;
   }
-  
+
   // computer circle clicked
-  if (mouseX >r-25 && mouseX<r+25 && mouseY>yM-25 && mouseY<yM+25) // shows where mouse must click to start animation
+  if (mouseX >xM-25 && mouseX<xM+25 && mouseY>yM-25 && mouseY<yM+25) // shows where mouse must click to start animation
   {  
     yM=random(250);
-    r=1000;
-    r3=r3+.1; // speeds up each time
+    xM=1000;
+    xM2=xM2+1; // speeds up each time
     score=score+5; // causes score to increase by 5
     if (value == 200) { // color must be 200 to work
       value = 0; // color changes to 0 when clicked
