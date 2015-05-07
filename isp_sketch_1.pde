@@ -1,4 +1,4 @@
-// May 4, 2015, Class 25 //<>//
+// May 6, 2015, Class 26 //<>//
 // Luke Vanden Broek
 
 // player circle variables
@@ -45,8 +45,10 @@ void draw()
     background (230, 100, 100);
     // up command
     if (!aPortrait) {
+      fill (0);
       ellipse(x, y, 100, 100);
     } else if (!bPortrait) {
+      fill (360);
       ellipse(x, y, 50, 50);
     }
     // score
@@ -66,29 +68,6 @@ void draw()
       }
     } else { 
       y=y+5; // moves player circle down when up released
-    } 
-    // computer circle
-    fill (value);
-    ellipse (xM, yM, 50, 50); // coordinates for computer circle starting at random x position and y position of 0
-    yM=yM+yM2; // moves computer circle down at random speed between 2 and 0
-    xM=xM-xM2;
-    // cursor appearence
-    fill (100, 100, 100); // makes next ellipse green
-    noCursor(); // hides the normal cursor
-    ellipse (mouseX, mouseY, 25, 25); // puts ellipse where mouse cursor would usually be
-    if (yM>500||xM<0) {
-      yM=random (250);
-      xM=1000;
-      xM2=xM2+1;
-      score=score-50; // score goes down by 20
-    }
-    if (y>500||y<0) {
-      y=250;
-      yM=random (250);
-      xM=1000;
-      xM2=.75;
-      score=0; // score resets
-      xa=1000;
     }
     // Change the horizontal position
     xa=xa-4;
@@ -101,7 +80,65 @@ void draw()
       ya=random (-400, 0);// resets height of top rect
       y2a=ya+400+inSpace;
     }
-    
+    // computer circle
+    fill (value);
+    ellipse (xM, yM, 50, 50); // coordinates for computer circle starting at random x position and y position of 0
+    yM=yM+yM2; // moves computer circle down at random speed between 2 and 0
+    xM=xM-xM2;
+    // cursor appearence
+    strokeWeight(2);
+    stroke (20, 100, 100);
+    noCursor(); // hides the normal cursor
+    noFill();
+    if (mousePressed) {
+      fill(20, 100, 100);
+    } else {
+      noFill();
+    }
+    ellipse (mouseX, mouseY, 25, 25); // puts ellipse where mouse cursor would usually be
+    noStroke();
+    if (yM>500||xM<0) {
+      yM=random (250);
+      xM=1000;
+      xM2=xM2+1;
+      score=score-50; // score goes down by 20
+    }
+    if (y>500||y<0||score<0) {
+      y=250;
+      yM=random (250);
+      xM=1000;
+      yM2=random (2);
+      xM2=.75;
+      score=0; // score resets
+      xa=1000;
+      inSpace=random (75, 100);
+      ya= random (-400, 0);
+      y2a= ya+400+inSpace;
+    }
+    if (x>xa&&x<xa+100&&y>ya&&y<ya+400) {
+      y=250;
+      yM=random (250);
+      xM=1000;
+      yM2=random (2);
+      xM2=.75;
+      score=0; // score resets
+      xa=1000;
+      inSpace=random (75, 100);
+      ya= random (-400, 0);
+      y2a= ya+400+inSpace;
+    }
+    if (x>xa&&x<xa+100&&y>ya+400+75&&y<ya+400+75+400) {
+      y=250;
+      yM=random (250);
+      xM=1000;
+      yM2=random (2);
+      xM2=.75;
+      score=0; // score resets
+      xa=1000;
+      inSpace=random (75, 100);
+      ya= random (-400, 0);
+      y2a= ya+400+inSpace;
+    }
   }
 }
 
