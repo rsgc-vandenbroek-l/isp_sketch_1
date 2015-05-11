@@ -1,4 +1,4 @@
-// May 6, 2015, Class 26 //<>//
+// May 8, 2015, Class 26 //<>//
 // Luke Vanden Broek
 
 // player circle variables
@@ -21,9 +21,13 @@ boolean aPortrait=true;
 boolean bPortrait=true;
 // obstacle variables
 int xa = 1000;
-float inSpace=random (75, 100);
+float inSpace=random (100, 125);
 float ya= random (-400, 0);
 float y2a= ya+400+inSpace;
+float c1=230;
+float c2=c1-180;
+
+
 void setup()
 {
   // background
@@ -37,19 +41,26 @@ void setup()
 }
 
 void draw()
-{ 
-  text("The Game", 375, 100);
+{
+  fill (360);
+  text("Revenge of the Opposite Colours", 112, 100);
+  fill (20, 100, 100);
   rect(100, 150, 300, 300);
+  fill(290, 100, 100);
   rect (600, 150, 300, 300);
   if (!menu) {
-    background (230, 100, 100);
+    background (230, 94, 99);
     // up command
     if (!aPortrait) {
-      fill (0);
-      ellipse(x, y, 100, 100);
-    } else if (!bPortrait) {
-      fill (360);
+      fill (c1, 100, 100);
       ellipse(x, y, 50, 50);
+      c1=20;
+      c2=200;
+    } else if (!bPortrait) {
+      fill (c1, 100, 100);
+      ellipse(x, y, 50, 50);
+      c1=290;
+      c2=110;
     }
     // score
     if (millis() - initialTime > interval)
@@ -57,25 +68,22 @@ void draw()
       score++;
       initialTime = millis();
     }
+    textSize(50);
     fill (360);
     text(score, 50, 50);
-    if (keyPressed) {
-      if (key == CODED) {
-        if (keyCode == UP)
-        {
-          y=y-5; // moves player circle up when up is clicked
-        }
-      }
+    if (keyPressed&&key==CODED&&keyCode==UP) {
+      y=y-5; // moves player circle up when up is clicked
     } else { 
       y=y+5; // moves player circle down when up released
     }
     // Change the horizontal position
     xa=xa-4;
     // Draw the rectangles on screen
+    fill (c2, 100, 100);
     rect(xa, ya, 100, 400);// draws first rect
     rect(xa, y2a, 100, 400);// draws second rect with space in between
     if (xa<0) {
-      inSpace= random(75, 100);
+      inSpace= random(100, 125);
       xa=1000;// respawns at 1000
       ya=random (-400, 0);// resets height of top rect
       y2a=ya+400+inSpace;
@@ -111,7 +119,7 @@ void draw()
       xM2=.75;
       score=0; // score resets
       xa=1000;
-      inSpace=random (75, 100);
+      inSpace=random (100, 125);
       ya= random (-400, 0);
       y2a= ya+400+inSpace;
     }
@@ -123,7 +131,7 @@ void draw()
       xM2=.75;
       score=0; // score resets
       xa=1000;
-      inSpace=random (75, 100);
+      inSpace=random (100, 125);
       ya= random (-400, 0);
       y2a= ya+400+inSpace;
     }
@@ -135,7 +143,7 @@ void draw()
       xM2=.75;
       score=0; // score resets
       xa=1000;
-      inSpace=random (75, 100);
+      inSpace=random (100, 125);
       ya= random (-400, 0);
       y2a= ya+400+inSpace;
     }
